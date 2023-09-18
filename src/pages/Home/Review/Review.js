@@ -10,7 +10,7 @@ const Review = ({review}) => {
     <h2 className="card-title">{name}</h2>
     <p>{feedback}</p>
     <div className="flex items-center">
-    <div className="avatar mr-6">
+    <div className="avatar mr-6 ">
   <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
     <img src={pic}/>
   </div>
