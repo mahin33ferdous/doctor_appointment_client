@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppoinmentBanner from '../AppoinmentBanner/AppoinmentBanner';
-import { DayPicker } from 'react-day-picker';
+import AppoinmentSlots from '../AppoinmentSlot/AppoinmentSlots';
+
+
+
 
 const Appoinment = () => {
+    const [selectedDate, setSelectedDate] = useState(new Date)
     return (
         <div>
-            <AppoinmentBanner></AppoinmentBanner>
+            <AppoinmentBanner
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            ></AppoinmentBanner>
+         <AppoinmentSlots
+           selectedDate={selectedDate}
+           setSelectedDate={setSelectedDate}
+         ></AppoinmentSlots>
+         
         </div>
     );
 };
