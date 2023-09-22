@@ -87,7 +87,8 @@
         "4.30 PM - 5.00 PM"
       ]
     },
-    {
+    { 
+      "_id": 5,
       "name": "Pediatric Dental",
       "slots": [
         "08.00 AM - 08.30 AM",

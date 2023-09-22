@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 const LogIn = () => {
-    const { register, handleSubmit } = useForm();
+    const { register,formState: { errors }, handleSubmit } = useForm();
     const handleLogin=data=>{
        console.log(data)
     }
@@ -19,13 +19,13 @@ const LogIn = () => {
                <label className="label">
              <span className="label-text">Email</span>
                   </label>
-               <input type="email" {...register("email")} className="input input-bordered w-full max-w-xs" />
-           
+               <input type="email" {...register("email",{ required: "Email Address is required" })}   className="input input-bordered w-full max-w-xs" />
+               {errors.email && <p className='text-red-600' role="alert ">{errors.email?.message}</p>}
                <label className="label">
              <span className="label-text">Password</span>
            </label>
-           <input type="password" {...register("password")} className="input input-bordered w-full max-w-xs" />
-                   
+           <input type="password" {...register("password",{ required: "password is required",minLength:{value:8, message:"password should have more then 8 characters"}})}  aria-invalid={errors.password ? "true" : "false"}  className="input input-bordered w-full max-w-xs" />
+           {errors.password && <p className='text-red-600' role="alert">{errors.password.message}</p>}
                <label className="label">
             <span className="label-text-alt">forgot password?</span>
             </label>
@@ -36,7 +36,7 @@ const LogIn = () => {
       
       <input type="submit" value="Login"className='btn btn-primary w-full' />
     </form>
-    <p>New user<Link className='text-primary' to="/signup"> Create an account?</Link></p>
+    <p>New user ?<Link className='text-primary' to="/signup"> Create an account?</Link></p>
     <div className="divider">OR</div>
     <button className='btn btn-outline w-full'>Log in with Google</button>
             </div>

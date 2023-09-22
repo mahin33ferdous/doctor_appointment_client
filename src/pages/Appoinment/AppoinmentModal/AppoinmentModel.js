@@ -6,7 +6,7 @@ const AppoinmentModel = ({selectedSlot,selectedDate}) => {
     const date=format(selectedDate, 'PP')
     
     return (
-        <>
+        <div>
   <input type="checkbox" id="my_modal_6" className="modal-toggle" />
 <div className="modal">
   <div className="modal-box">
@@ -15,7 +15,7 @@ const AppoinmentModel = ({selectedSlot,selectedDate}) => {
  
     <h3 className="font-bold text-lg">{name}</h3>
     <p className="py-4">Book your appoinment!</p>
-    <from className="grid grid-cols-1 gap-3"> 
+    <form className="grid grid-cols-1 gap-3"> 
     <input type="text" placeholder="" value={date} className="input input-bordered w-full max-w-xs font-bold" />  
     <select className="select select-bordered w-full max-w-xs font-bold">
       {
@@ -29,7 +29,7 @@ const AppoinmentModel = ({selectedSlot,selectedDate}) => {
       <input type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
       <br/>
        <input type="submit" value="submit" className='btn btn-primary w-full max-w-xs'/> 
-      </from> 
+      </form> 
       <div className="modal-action">
       <label htmlFor="my_modal_6" className="btn">Close!</label>
     </div>
@@ -37,7 +37,7 @@ const AppoinmentModel = ({selectedSlot,selectedDate}) => {
     
   </div>
 
-        </>
+        </div>
     );
 };
 
