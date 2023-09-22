@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import b from '../../img/banner.jpg'
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 const LogIn = () => {
+    const { register, handleSubmit } = useForm();
+    const handleLogin=data=>{
+       console.log(data)
+    }
     return (
-        <div>
-             <div className='w-full relative'>
-            <img src={b} className="w-full" alt="" />
-            <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 flex flex-col justify-center items-center '>
-                <h1 className='text-4xl text-white font-bold'>Welcome to Store House Controller</h1>
-                <p className='text-xl text-gray-300'>Help to Control inventories sales, purchases, deliveries, suppliers and maintain your warehouse smoothly. </p>
-
+        <div className='h-[800px]  flex justify-center items-center'>
+            <div className='w-96 p-7' >
+            <h4 className='text-43l text-center '>Login</h4>
+            <form onSubmit={handleSubmit(handleLogin)}>
+      
+          <div className="form-control w-full max-w-xs">
+          
+               <label className="label">
+             <span className="label-text">Email</span>
+                  </label>
+               <input type="email" {...register("email")} className="input input-bordered w-full max-w-xs" />
+           
+               <label className="label">
+             <span className="label-text">Password</span>
+           </label>
+           <input type="password" {...register("password")} className="input input-bordered w-full max-w-xs" />
+                   
+               <label className="label">
+            <span className="label-text-alt">forgot password?</span>
+            </label>
             </div>
-        </div>
+
+      
+      
+      
+      <input type="submit" value="Login"className='btn btn-primary w-full' />
+    </form>
+    <p>New user<Link className='text-primary' to="/signup"> Create an account?</Link></p>
+    <div className="divider">OR</div>
+    <button className='btn btn-outline w-full'>Log in with Google</button>
+            </div>
+            
         </div>
     );
 };
