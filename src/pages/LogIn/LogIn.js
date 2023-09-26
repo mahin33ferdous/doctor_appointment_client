@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import b from '../../img/banner.jpg'
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
 const LogIn = () => {
     const { register,formState: { errors }, handleSubmit } = useForm();
+    const {signIn}=useContext(AuthContext)
+    const [loginError,setLoginError]=useState()
     const handleLogin=data=>{
        console.log(data)
+       setLoginError('')
+       signIn(data.email,data.password)
+       .then(res=>{
+        const user=res.user
+        console.log(user)
+       })
+       .catch(error=>{
+        console.log(error.message)
+        setLoginError(error.message)
+       })
     }
     return (
         <div className='h-[800px]  flex justify-center items-center'>
@@ -26,6 +39,9 @@ const LogIn = () => {
            </label>
            <input type="password" {...register("password",{ required: "password is required",minLength:{value:8, message:"password should have more then 8 characters"}})}  aria-invalid={errors.password ? "true" : "false"}  className="input input-bordered w-full max-w-xs" />
            {errors.password && <p className='text-red-600' role="alert">{errors.password.message}</p>}
+           <div>
+           {loginError && <p className='text-red-600'>{loginError}</p>}
+           </div>
                <label className="label">
             <span className="label-text-alt">forgot password?</span>
             </label>
