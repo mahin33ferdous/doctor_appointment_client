@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
 import b from '../../img/banner.jpg'
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const LogIn = () => {
     const { register,formState: { errors }, handleSubmit } = useForm();
     const {signIn}=useContext(AuthContext)
     const [loginError,setLoginError]=useState()
+    const location=useLocation()
+    const navigate=useNavigate()
+
+     const from=location.state?.form?.pathname || '/' //this is the location in which user wanted to go
     const handleLogin=data=>{
        console.log(data)
        setLoginError('')
@@ -15,6 +19,7 @@ const LogIn = () => {
        .then(res=>{
         const user=res.user
         console.log(user)
+        navigate(from,{replace:true})
        })
        .catch(error=>{
         console.log(error.message)
