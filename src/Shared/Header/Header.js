@@ -13,7 +13,7 @@ const Header = () => {
 
     const menuItem=<React.Fragment>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/appoinment'>Appoinment</Link></li>
+        <li><Link to='/appointment'>Appointment</Link></li>
         
         {
            user?.uid?
@@ -38,7 +38,7 @@ const Header = () => {
       {menuItem}
       </ul>
     </div>
-    <Link to="/" className="btn btn-ghost normal-case text-xl">doctor appoiment</Link>
+    <Link to="/" className="btn btn-ghost normal-case text-xl">doctor appointment</Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

@@ -1,9 +1,11 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const AppoinmentModel = ({selectedSlot,selectedDate}) => {
     const{name,slots}=selectedSlot
     const date=format(selectedDate, 'PP')
+    const{user}=useContext(AuthContext)
     
     return (
         <div>
@@ -24,9 +26,10 @@ const AppoinmentModel = ({selectedSlot,selectedDate}) => {
       }
   
   </select>
-      <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs " />
+       
+      <input type="text" placeholder="Name" defaultValue={user?.displayName} readOnly className="input input-bordered w-full max-w-xs font-bold" />
       <input type="text" placeholder="Phone Number" className="input input-bordered w-full max-w-xs" />
-      <input type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
+      <input type="text" placeholder="email" defaultValue={user?.email} readOnly className="input input-bordered w-full max-w-xs font-bold" />
       <br/>
        <input type="submit" value="submit" className='btn btn-primary w-full max-w-xs'/> 
       </form> 
