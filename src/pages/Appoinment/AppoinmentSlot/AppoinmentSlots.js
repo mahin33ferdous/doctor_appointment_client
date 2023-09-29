@@ -6,14 +6,15 @@ import { useQuery } from 'react-query';
 const AppoinmentSlots = ({selectedDate,setSelectedDate}) => {
     // const [appoinmentSlots,setAppointmentSlots]=useState([])
     const [selectedSlot,setSelectedSlot]=useState(null)
-    console.log(selectedSlot)
+    const date=format(selectedDate, 'PP')
+   // console.log(selectedSlot)
 // fetching data using react query
     const {data:appoinmentSlots=[]}= useQuery({
-        querykey:['appointmentSlots'],
+        querykey:['appointmentSlots',date],
         queryFn: async()=>{
-            const res=await fetch('http://localhost:5000/appointment');
+            const res=await fetch(`http://localhost:5000/appointment?date=${date}`);
             const data= await res.json()
-            console.log(data)
+            //console.log(data)
             return data
            
         }
@@ -41,6 +42,7 @@ const AppoinmentSlots = ({selectedDate,setSelectedDate}) => {
                     selectedSlot &&
                     <AppoinmentModel
                     selectedSlot={selectedSlot}
+                    setSelectedSlot={setSelectedSlot}
                     selectedDate={selectedDate}
                     
                     ></AppoinmentModel>
