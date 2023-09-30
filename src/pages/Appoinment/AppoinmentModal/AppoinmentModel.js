@@ -40,6 +40,9 @@ const AppoinmentModel = ({selectedSlot,setSelectedSlot,selectedDate,refetch}) =>
             toast.success('booking confirmed')
             refetch()
         }
+        else{
+          toast.error(data.message)
+        }
 })
     .catch(err=>console.error(err))
 }
