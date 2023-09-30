@@ -3,13 +3,15 @@ import { format } from 'date-fns';
 import AppointmentSlot from './AppointmentSlot';
 import AppoinmentModel from '../AppoinmentModal/AppoinmentModel';
 import { useQuery } from 'react-query';
+import Loading from '../../../Shared/Loading/Loading';
 const AppoinmentSlots = ({selectedDate,setSelectedDate}) => {
     // const [appoinmentSlots,setAppointmentSlots]=useState([])
     const [selectedSlot,setSelectedSlot]=useState(null)
     const date=format(selectedDate, 'PP')
    // console.log(selectedSlot)
-// fetching data using react query
-    const {data:appoinmentSlots=[]}= useQuery({
+// fetching data using react query method 1
+// refetch is used to update query instantly 
+    const {data:appoinmentSlots=[],refetch}= useQuery({
         querykey:['appointmentSlots',date],
         queryFn: async()=>{
             const res=await fetch(`http://localhost:5000/appointment?date=${date}`);
@@ -18,13 +20,19 @@ const AppoinmentSlots = ({selectedDate,setSelectedDate}) => {
             return data
            
         }
-    })
-// fetching data using useEffect 
+    });
+// fetching data using useEffect method 2
+
     // useEffect(()=>{
     //     fetch('http://localhost:5000/appointment')
     //     .then(res=>res.json())
     //     .then(data=>setAppointmentSlots(data))
     // },[])
+
+    // if(isLoading)
+    // {
+    //     return<Loading></Loading>
+    // }
     return (
         <section className='mt-6'>
              <p className='text-center text-primary font-bold'>You picked {format(selectedDate, 'PP')}</p>
@@ -44,6 +52,7 @@ const AppoinmentSlots = ({selectedDate,setSelectedDate}) => {
                     selectedSlot={selectedSlot}
                     setSelectedSlot={setSelectedSlot}
                     selectedDate={selectedDate}
+                    refetch={refetch}
                     
                     ></AppoinmentModel>
                 }

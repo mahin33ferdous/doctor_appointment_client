@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthProvider';
 import toast from 'react-hot-toast';
 
-const AppoinmentModel = ({selectedSlot,setSelectedSlot,selectedDate}) => {
+const AppoinmentModel = ({selectedSlot,setSelectedSlot,selectedDate,refetch}) => {
     const{name:treatmentName,slots}=selectedSlot
     const date=format(selectedDate, 'PP')
     const{user}=useContext(AuthContext)
@@ -38,6 +38,7 @@ const AppoinmentModel = ({selectedSlot,setSelectedSlot,selectedDate}) => {
            
             setSelectedSlot(null)
             toast.success('booking confirmed')
+            refetch()
         }
 })
     .catch(err=>console.error(err))
