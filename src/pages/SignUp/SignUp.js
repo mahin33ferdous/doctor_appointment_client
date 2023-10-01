@@ -10,7 +10,7 @@ const SignUp = () => {
     const {createUser,updateUser}=useContext(AuthContext)
     const [signUpError,setSignUpError]=useState()
     const navigate=useNavigate()
-    const handleLogin=data=>{
+    const handleSignUp=data=>{
        console.log(data)
        setSignUpError('')
        createUser(data.email,data.password)
@@ -23,6 +23,7 @@ const SignUp = () => {
         }
       updateUser(userInfo)
       .then(()=>{
+        saveUser(data.name,data.email)
         navigate('/')
       })
       .catch(err=>console.log(err))
@@ -30,12 +31,38 @@ const SignUp = () => {
        .catch(error=>{console.log(error.message)
                      setSignUpError(error.message)})
     }
+    const saveUser=(name,email)=>{
+      const user={
+        name,email
+      }
+      console.log(user)
+
+      fetch('http://localhost:5000/users',{
+        method: 'POST',
+        headers:{
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+    .then(res=>res.json())
+    .then(data=>{console.log(data)
+        if(data.acknowledged){
+           
+            
+            toast.success('user inserted')
+            //refetch()
+        }
+        else{
+          toast.error(data.message)
+        }
+})
+    }
 
     return (
         <div className='h-[800px]  flex justify-center items-center'>
         <div className='w-96 p-7' >
         <h4 className='text-43l text-center '>Register</h4>
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form onSubmit={handleSubmit(handleSignUp)}>
   
       <div className="form-control w-full max-w-xs">
       <label className="label">

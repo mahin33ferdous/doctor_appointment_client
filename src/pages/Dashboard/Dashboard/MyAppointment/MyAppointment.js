@@ -43,7 +43,7 @@ const MyAppointment = () => {
       {/* row 1 */}
       
       {
-        bookings.map((booking,i)=><tr key={booking._id}>
+        bookings.map((booking,i)=><tr className='hover' key={booking._id}>
         <th>{i}</th>
         <th>{booking.email}</th>
         <th>{booking.treatment}</th>
