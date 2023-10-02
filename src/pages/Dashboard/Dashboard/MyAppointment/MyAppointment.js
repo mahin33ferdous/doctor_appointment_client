@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 const MyAppointment = () => {
     const {user}=useContext(AuthContext)
 
-    // const uri=`http://localhost:5000/bookings?email=${user?.email}`
+     const uri=`http://localhost:5000/bookings?email=${user?.email}`
     // const { data} = useQuery(['bookings', user?.email],async () => {
     //     const res = await fetch(uri)
     //     const data=res.json();
@@ -15,7 +15,13 @@ const MyAppointment = () => {
     const {data: bookings=[]}= useQuery({
         querykey:['bookings', user?.email],
         queryFn: async()=>{
-            const res=await fetch(`http://localhost:5000/bookings?email=${user?.email}`);
+            const res=await fetch(uri,{
+
+            headers:{
+                authorization :`bearer ${localStorage.getItem('accessToken')}`//sendng access token to server side
+            }
+
+           });
             const data= await res.json()
             //console.log(bookings)
             return data
@@ -47,7 +53,7 @@ const MyAppointment = () => {
         <th>{i}</th>
         <th>{booking.email}</th>
         <th>{booking.treatment}</th>
-        <th>{booking.appointmentDat}</th>
+        <th>{booking.appointmentDate}</th>
         <th>{booking.slot}</th>
       </tr>
         

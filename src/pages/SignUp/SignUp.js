@@ -24,7 +24,8 @@ const SignUp = () => {
       updateUser(userInfo)
       .then(()=>{
         saveUser(data.name,data.email)
-        navigate('/')
+       // navigate('/')
+       
       })
       .catch(err=>console.log(err))
        })
@@ -48,7 +49,7 @@ const SignUp = () => {
     .then(data=>{console.log(data)
         if(data.acknowledged){
            
-            
+          getUserToken(email) // mistakenly called this function to sign in this need to called here to save in user collection database
             toast.success('user inserted')
             //refetch()
         }
@@ -56,6 +57,20 @@ const SignUp = () => {
           toast.error(data.message)
         }
 })
+    }
+// geting user token from jwt api 
+    const getUserToken=email=>{
+      console.log(email)
+      fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+        if(data.accessToken)
+        {
+          localStorage.setItem('accessToken',data.accessToken)
+          navigate('/')
+        }
+      })
     }
 
     return (
