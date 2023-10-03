@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 import PrivateRouter from "./privateRoute/PrivateRouter";
 import DashboardLyout from "../Main/DashboardLyout/DashboardLyout";
 import MyAppointment from "../pages/Dashboard/Dashboard/MyAppointment/MyAppointment";
+import AllUser from "../pages/Dashboard/AllUser/AllUser";
 
 
 
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
         element: <SignUp></SignUp>
       }
 
-
+   
+      
 
       ]
     },
@@ -45,9 +47,13 @@ const router = createBrowserRouter([
         {
             path: "/dashboard",
             element: <MyAppointment></MyAppointment>
-        }
+        },        {
+          path: "/dashboard/allusers",
+          element: <AllUser></AllUser>
+      }
       ]
     }
+
 
   ]);
 

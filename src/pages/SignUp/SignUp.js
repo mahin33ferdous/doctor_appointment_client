@@ -4,12 +4,19 @@ import { useForm } from 'react-hook-form';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast';
+import useToken from '../../Hooks/useToken';
 
 const SignUp = () => {
     const { register,formState: { errors }, handleSubmit } = useForm();
     const {createUser,updateUser}=useContext(AuthContext)
     const [signUpError,setSignUpError]=useState()
     const navigate=useNavigate()
+    const [userSignUpEmail,setuserSignUpEmail]=useState('')
+    const [token]=useToken(userSignUpEmail)
+
+    if(token){
+      navigate('/')
+    }
     const handleSignUp=data=>{
        console.log(data)
        setSignUpError('')
@@ -48,8 +55,8 @@ const SignUp = () => {
     .then(res=>res.json())
     .then(data=>{console.log(data)
         if(data.acknowledged){
-           
-          getUserToken(email) // mistakenly called this function to sign in this need to called here to save in user collection database
+           setuserSignUpEmail(email)
+          //getUserToken(email) // mistakenly called this function to sign in this need to called here to save in user collection database
             toast.success('user inserted')
             //refetch()
         }
@@ -59,19 +66,19 @@ const SignUp = () => {
 })
     }
 // geting user token from jwt api 
-    const getUserToken=email=>{
-      console.log(email)
-      fetch(`http://localhost:5000/jwt?email=${email}`)
-      .then(res=>res.json())
-      .then(data=>{
-        console.log(data)
-        if(data.accessToken)
-        {
-          localStorage.setItem('accessToken',data.accessToken)
-          navigate('/')
-        }
-      })
-    }
+    // const getUserToken=email=>{
+    //   console.log(email)
+    //   fetch(`http://localhost:5000/jwt?email=${email}`)
+    //   .then(res=>res.json())
+    //   .then(data=>{
+    //     console.log(data)
+    //     if(data.accessToken)
+    //     {
+    //       localStorage.setItem('accessToken',data.accessToken)
+    //       navigate('/')
+    //     }
+    //   })
+    // }
 
     return (
         <div className='h-[800px]  flex justify-center items-center'>

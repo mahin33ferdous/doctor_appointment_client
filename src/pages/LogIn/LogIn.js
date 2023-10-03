@@ -3,6 +3,7 @@ import b from '../../img/banner.jpg'
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import useToken from '../../Hooks/useToken';
 
 const LogIn = () => {
     const { register,formState: { errors }, handleSubmit } = useForm();
@@ -10,8 +11,17 @@ const LogIn = () => {
     const [loginError,setLoginError]=useState()
     const location=useLocation()
     const navigate=useNavigate()
+    const [userLoginEmail,setuserLoginEmail]=useState('')
+    const [token]=useToken(userLoginEmail)
+
+
 
      const from=location.state?.form?.pathname || '/' //this is the location in which user wanted to go
+   
+     if(token){
+      navigate(from,{replace:true})
+    }
+
     const handleLogin=data=>{
        console.log(data)
        setLoginError('')
@@ -19,7 +29,8 @@ const LogIn = () => {
        .then(res=>{
         const user=res.user
         console.log(user)
-        navigate(from,{replace:true})
+        setuserLoginEmail(data.email)
+        
        })
        .catch(error=>{
         console.log(error.message)
