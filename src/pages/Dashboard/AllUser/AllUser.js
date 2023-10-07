@@ -31,6 +31,7 @@ const AllUser = () => {
                 toast.success("Admin created successfully")
                 refetch()
             }
+            toast.error("You are not admin")
         })
            
             

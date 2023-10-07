@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../context/AuthProvider';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 ;
 
 const MyAppointment = () => {
@@ -43,6 +44,7 @@ const MyAppointment = () => {
         <th>Treatment</th>
         <th>Date</th>
         <th>Time</th>
+        <th>Payment</th>
       </tr>
     </thead>
     <tbody>
@@ -55,6 +57,17 @@ const MyAppointment = () => {
         <th>{booking.treatment}</th>
         <th>{booking.appointmentDate}</th>
         <th>{booking.slot}</th>
+        <th>
+           {
+            booking.price && !booking.paid && <Link to={`payment/${booking._id}`}>
+            <button className='btn btn-primary btn-sm'>pay</button>
+            </Link>
+           }
+           {
+           booking.price && booking.paid && <span className='text-primary'>paid</span>
+           }
+            
+            </th>
       </tr>
         
         )

@@ -4,7 +4,7 @@ import { AuthContext } from '../../../context/AuthProvider';
 import toast from 'react-hot-toast';
 
 const AppoinmentModel = ({selectedSlot,setSelectedSlot,selectedDate,refetch}) => {
-    const{name:treatmentName,slots}=selectedSlot
+    const{name:treatmentName,slots,price}=selectedSlot
     const date=format(selectedDate, 'PP')
     const{user}=useContext(AuthContext)
      const handleBooking=e=>{
@@ -21,7 +21,8 @@ const AppoinmentModel = ({selectedSlot,setSelectedSlot,selectedDate,refetch}) =>
         patient : name,
         slot,
         email,
-        phone
+        phone,
+        price
       }
       console.log(booking)
 

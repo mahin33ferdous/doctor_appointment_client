@@ -10,6 +10,7 @@ import PrivateRouter from "./privateRoute/PrivateRouter";
 import DashboardLyout from "../Main/DashboardLyout/DashboardLyout";
 import MyAppointment from "../pages/Dashboard/Dashboard/MyAppointment/MyAppointment";
 import AllUser from "../pages/Dashboard/AllUser/AllUser";
+import Payment from "../pages/Dashboard/Payment/Payment";
 
 
 
@@ -47,10 +48,16 @@ const router = createBrowserRouter([
         {
             path: "/dashboard",
             element: <MyAppointment></MyAppointment>
-        },        {
+        },
+        {
           path: "/dashboard/allusers",
           element: <AllUser></AllUser>
-      }
+         },
+         {
+           path: "/dashboard/payment/:id",
+           element: <Payment></Payment>,
+           loader: ({params})=>fetch(`http://localhost:5000/bookings/${params.id}`)
+          }
       ]
     }
 
